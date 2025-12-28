@@ -49,6 +49,8 @@ spec:
               value: "0.0.0.0"
             - name: SYNC_PORT
               value: "80"
+            - name: SYNC_TOKENSERVER__FXA_OAUTH_SERVER_URL
+              value: {{ .Values.tokenDomain }}
             - name: SYNC_MASTER_SECRET
               valueFrom:
                 secretKeyRef:

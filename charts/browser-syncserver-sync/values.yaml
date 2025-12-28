@@ -19,6 +19,12 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+# Endpoint of auth service
+authServerUrl: "placeholder"
+
+# Domain for tokens. For most users this just needs to be consistent between the auth service and sync.
+tokenDomain: "localhost"
+
 # Opaque shared secret between the Auth, Token, and Storage services. Must be high entropy and consistent.
 masterSecretSecretRef:
   name: "placeholder"
