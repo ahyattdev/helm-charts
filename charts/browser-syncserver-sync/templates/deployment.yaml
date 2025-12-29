@@ -68,6 +68,8 @@ spec:
                   key: {{ .Values.tokenDatabaseUriSecretRef.key }}
             - name: SYNC_TOKENSERVER__RUN_MIGRATIONS
               value: "true"
+            - name: RUST_LOG
+              value: "info"
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
