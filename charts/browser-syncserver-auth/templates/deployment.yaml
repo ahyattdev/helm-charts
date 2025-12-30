@@ -49,6 +49,11 @@ spec:
               value: {{ .Values.baseUrl }}
             - name: SYNC_SERVER_URL
               value: {{ .Values.syncServerUrl }}
+            - name: DATABASE_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.authDatabaseUriSecretRef.name }}
+                  key: {{ .Values.authDatabaseUriSecretRef.key }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
