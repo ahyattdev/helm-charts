@@ -50,7 +50,7 @@ spec:
             - name: SYNC_PORT
               value: "80"
             - name: SYNC_TOKENSERVER__FXA_EMAIL_DOMAIN
-              value: {{ urlJoin (merge (urlParse .Values.tokenDomain) (dict "path" "/oauth")) }}
+              value: "{{ trimSuffix "/" .Values.tokenDomain }}/oauth"
             - name: SYNC_TOKENSERVER__FXA_OAUTH_SERVER_URL
               value: {{ .Values.authServerUrl }}
             - name: SYNC_MASTER_SECRET
