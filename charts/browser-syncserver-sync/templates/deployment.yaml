@@ -50,9 +50,9 @@ spec:
             - name: SYNC_PORT
               value: "80"
             - name: SYNC_TOKENSERVER__FXA_EMAIL_DOMAIN
-              value: "{{ trimSuffix "/" .Values.tokenDomain }}/oauth"
+              value: {{ .Values.tokenDomain }}
             - name: SYNC_TOKENSERVER__FXA_OAUTH_SERVER_URL
-              value: {{ .Values.authServerUrl }}
+              value: "{{ trimSuffix "/" .Values.authServerUrl }}/oauth"
             - name: SYNC_MASTER_SECRET
               valueFrom:
                 secretKeyRef:
