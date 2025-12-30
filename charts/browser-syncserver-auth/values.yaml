@@ -25,6 +25,14 @@ baseUrl: "placeholder"
 # Endpoint which the browser will use to connect to the sync server
 syncServerUrl: "placeholder"
 
+# Signing key for JWTs issues by this authentication server.
+#
+# Generate a P-256 EC private key with:
+# openssl ecparam -name prime256v1 -genkey -noout -out jwt-private-key.pem
+jwtPrivateKeySecretRef:
+  name: "placeholder"
+  key: "placeholder"
+
 # Database responsible for auth.
 # Value should be "postgresql://<username>:<password>@<host>:<port>/<databse>"
 # This is available under the key "uri" of the secret created by CloudNativePG (https://cloudnative-pg.io/)

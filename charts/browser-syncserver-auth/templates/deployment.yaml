@@ -54,6 +54,11 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.authDatabaseUriSecretRef.name }}
                   key: {{ .Values.authDatabaseUriSecretRef.key }}
+            - name: JWT_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.jwtPrivateKeySecretRef.name }}
+                  key: {{ .Values.jwtPrivateKeySecretRef.key }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
