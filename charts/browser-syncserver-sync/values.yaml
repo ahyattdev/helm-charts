@@ -19,8 +19,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# Endpoint of auth service
-authServerUrl: "placeholder"
+# JWK public key, used to validate tokens issued by auth server
+# After deploying browser-syncserver-auth, get this with:
+# curl -s https://my-auth-endpoint.example.com/oauth/v1/jwks | jq '.keys[0]' -c
+oauthPrimaryJwk: "placeholder"
 
 # Domain for tokens. For most users this just needs to be consistent between the auth service and sync.
 tokenDomain: "localhost"
