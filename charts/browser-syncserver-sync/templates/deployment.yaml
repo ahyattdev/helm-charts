@@ -40,6 +40,13 @@ spec:
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              # Transform postgresql:// to postgres:// for syncstorage-rs compatibility
+              export SYNC_SYNCSTORAGE__DATABASE_URL=$(echo "$_ORIG_STORAGE_DB_URL" | sed 's/postgresql:/postgres:/')
+              export SYNC_TOKENSERVER__DATABASE_URL=$(echo "$_ORIG_TOKEN_DB_URL" | sed 's/postgresql:/postgres:/')
+              exec /app/bin/syncserver
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -70,12 +77,13 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.masterSecretSecretRef.name }}
                   key: {{ .Values.masterSecretSecretRef.key }}
-            - name: SYNC_SYNCSTORAGE__DATABASE_URL
+            # Original DB URLs - transformed at runtime by command override
+            - name: _ORIG_STORAGE_DB_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.storageDatabaseUriSecretRef.name }}
                   key: {{ .Values.storageDatabaseUriSecretRef.key }}
-            - name: SYNC_TOKENSERVER__DATABASE_URL
+            - name: _ORIG_TOKEN_DB_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.tokenDatabaseUriSecretRef.name }}
