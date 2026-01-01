@@ -38,6 +38,8 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
+              set -e
+              
               # Transform postgresql:// to postgres:// for psql compatibility
               export DATABASE_URL=$(echo "$_ORIG_TOKEN_DB_URL" | sed 's/postgresql:/postgres:/')
               
