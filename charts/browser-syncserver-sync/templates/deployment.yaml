@@ -52,7 +52,7 @@ spec:
             - name: SYNC_TOKENSERVER__FXA_EMAIL_DOMAIN
               value: {{ .Values.tokenDomain }}
             - name: SYNC_TOKENSERVER__FXA_OAUTH_PRIMARY_JWK
-              value: {{ .Values.oauthPrimaryJwk | quote }}
+              value: {{ .Values.oauthPrimaryJwk | squote }}
             - name: SYNC_MASTER_SECRET
               valueFrom:
                 secretKeyRef:
