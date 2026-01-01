@@ -40,6 +40,26 @@ authDatabaseUriSecretRef:
   name: "placeholder"
   key: "placeholder"
 
+# Push notification VAPID keys, used for client sync notifications
+#
+#### How to Generate ####
+#
+## Generate private key
+# openssl ecparam -genkey -name prime256v1 -noout -out vapid.pem
+#
+## Extract private key (32 bytes, base64url)
+# openssl ec -in vapid.pem -noout -text 2>/dev/null | grep -A3 'priv:' | tail -n3 | tr -d ' :\n' | xxd -r -p | base64 | tr '+/' '-_' | tr -d '='
+#
+## Extract public key (65 bytes, base64url)
+# openssl ec -in vapid.pem -pubout -outform DER 2>/dev/null | tail -c 65 | base64 | tr '+/' '-_' | tr -d '='
+#
+# Contact email can be omitted.
+vapidKeySecretRef:
+  name: "placeholder"
+  publicKeyKey: "public-key" # base64urlencoded
+  privateKeyKey: "private-key" # base64urlencoded
+  contactEmailKey: "" # Optional
+
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
   # Specifies whether a service account should be created

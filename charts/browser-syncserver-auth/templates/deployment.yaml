@@ -59,6 +59,23 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.jwtPrivateKeySecretRef.name }}
                   key: {{ .Values.jwtPrivateKeySecretRef.key }}
+            - name: VAPID_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.vapidKeySecretRef.name }}
+                  key: {{ .Values.vapidKeySecretRef.privateKeyKey }}
+            - name: VAPID_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.vapidKeySecretRef.name }}
+                  key: {{ .Values.vapidKeySecretRef.publicKeyKey }}
+            {{- if .Values.vapidKeySecretRef.contactEmailKey }}
+            - name: VAPID_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.vapidKeySecretRef.name }}
+                  key: {{ .Values.vapidKeySecretRef.contactEmailKey }}
+            {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
