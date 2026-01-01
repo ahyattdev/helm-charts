@@ -48,10 +48,10 @@ authDatabaseUriSecretRef:
 # openssl ecparam -genkey -name prime256v1 -noout -out vapid.pem
 #
 ## Extract private key (32 bytes, base64url)
-# openssl ec -in vapid.pem -noout -text 2>/dev/null | grep -A3 'priv:' | tail -n3 | tr -d ' :\n' | xxd -r -p | base64 | tr '+/' '-_' | tr -d '='
+# openssl ec -in vapid.pem -noout -text 2>/dev/null | grep -A3 'priv:' | tail -n3 | tr -d ' :\n' | xxd -r -p | base64 -w0 | tr '+/' '-_' | tr -d '=' && echo
 #
 ## Extract public key (65 bytes, base64url)
-# openssl ec -in vapid.pem -pubout -outform DER 2>/dev/null | tail -c 65 | base64 | tr '+/' '-_' | tr -d '='
+# openssl ec -in vapid.pem -pubout -outform DER 2>/dev/null | tail -c 65 | base64 -w0 | tr '+/' '-_' | tr -d '=' && echo
 #
 # Contact email can be omitted.
 vapidKeySecretRef:
