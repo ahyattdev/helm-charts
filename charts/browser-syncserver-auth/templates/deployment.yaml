@@ -76,6 +76,22 @@ spec:
                   name: {{ .Values.vapidKeySecretRef.name }}
                   key: {{ .Values.vapidKeySecretRef.contactEmailKey }}
             {{- end }}
+            - name: AUTH_METHOD
+              value: {{ .Values.authMethod }}
+            {{- if (eq .Values.authMethod "oidc") }}
+            - name: OIDC_ISSUER
+              value: {{ .Values.oidc.issuer | quote}}
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.oidc.clientSecretRef.name }}
+                  key: {{ .Values.oidc.clientSecretRef.clientIdKey }}
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.oidc.clientSecretRef.name }}
+                  key: {{ .Values.oidc.clientSecretRef.clientSecretKey }}
+            {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}

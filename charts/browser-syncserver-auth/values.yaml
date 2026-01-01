@@ -25,6 +25,18 @@ baseUrl: "placeholder"
 # Endpoint which the browser will use to connect to the sync server
 syncServerUrl: "placeholder"
 
+# Supported options are:
+# - local: Local usernames and passwords
+# - oidc: OpenID Connect authentication
+authMethod: "local"
+
+oidc:
+  issuer: "https://placeholder.example.com"
+  clientSecretRef:
+    name: "placeholder"
+    clientIdKey: "client-id"
+    clientSecretKey: "client-secret"
+
 # Signing key for JWTs issues by this authentication server.
 #
 # Generate a private key with:
