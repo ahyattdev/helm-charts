@@ -21,8 +21,25 @@ fullnameOverride: ""
 
 # JWK public key, used to validate tokens issued by auth server
 # After deploying browser-syncserver-auth, get this with:
-# curl -s https://my-auth-endpoint.example.com/oauth/v1/jwks | jq '.keys[0]' -c
-oauthPrimaryJwk: "placeholder"
+# curl -s https://my-auth-endpoint.example.com/oauth/v1/jwks | yq -P '.keys[0]'
+#
+# Example:
+# oauthPrimaryJwk:
+#  alg: ES256
+#  crv: P-256
+#  kid: ubGrkfwqs3s
+#  kty: EC
+#  use: sig
+#  x: yQoWZHQqwD87UdYQZA0746vjcTnYOmtwZqwqNP1FeAY
+#  "y": 2vBCBMMolqGljhOqniQyer6pmHPk7tpMX1nwSTOJ3aw
+oauthPrimaryJwk:
+  alg: "placeholder"
+  crv: "placeholder"
+  kid: "placeholder"
+  kty: "placeholder"
+  use: "placeholder"
+  x: "placeholder"
+  "y": "placeholder"
 
 # Domain for tokens. For most users this just needs to be consistent between the auth service and sync.
 tokenDomain: "localhost"
