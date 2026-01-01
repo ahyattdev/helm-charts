@@ -25,21 +25,19 @@ fullnameOverride: ""
 #
 # Example:
 # oauthPrimaryJwk:
-#  alg: ES256
-#  crv: P-256
-#  kid: ubGrkfwqs3s
-#  kty: EC
-#  use: sig
-#  x: yQoWZHQqwD87UdYQZA0746vjcTnYOmtwZqwqNP1FeAY
-#  "y": 2vBCBMMolqGljhOqniQyer6pmHPk7tpMX1nwSTOJ3aw
+#   alg: RS256
+#   e: AQAB
+#   kid: xxxxxxx
+#   kty: RSA
+#   "n": xxxxxxxxxxxxxxxxxxxxxxxxxxx
+#   use: sig
 oauthPrimaryJwk:
   alg: "placeholder"
-  crv: "placeholder"
+  e: "placeholder"
   kid: "placeholder"
   kty: "placeholder"
+  "n": "placeholder"
   use: "placeholder"
-  x: "placeholder"
-  "y": "placeholder"
 
 # Domain for tokens. For most users this just needs to be consistent between the auth service and sync.
 tokenDomain: "localhost"

@@ -53,18 +53,16 @@ spec:
               value: {{ .Values.tokenDomain }}
             - name: SYNC_TOKENSERVER__FXA_OAUTH_PRIMARY_JWK__ALG
               value: {{ .Values.oauthPrimaryJwk.alg | quote}}
-            - name: SYNC_TOKENSERVER__FXA_OAUTH_PRIMARY_JWK__CRV
-              value: {{ .Values.oauthPrimaryJwk.crv | quote}}
+            - name: SYNC_TOKENSERVER__FXA_OAUTH_PRIMARY_JWK__E
+              value: {{ .Values.oauthPrimaryJwk.e | quote}}
             - name: SYNC_TOKENSERVER__FXA_OAUTH_PRIMARY_JWK__KID
               value: {{ .Values.oauthPrimaryJwk.kid | quote}}
             - name: SYNC_TOKENSERVER__FXA_OAUTH_PRIMARY_JWK__KTY
               value: {{ .Values.oauthPrimaryJwk.kty | quote}}
             - name: SYNC_TOKENSERVER__FXA_OAUTH_PRIMARY_JWK__USE
               value: {{ .Values.oauthPrimaryJwk.use | quote}}
-            - name: SYNC_TOKENSERVER__FXA_OAUTH_PRIMARY_JWK__X
-              value: {{ .Values.oauthPrimaryJwk.x | quote}}
-            - name: SYNC_TOKENSERVER__FXA_OAUTH_PRIMARY_JWK__Y
-              value: {{ .Values.oauthPrimaryJwk.y | quote}}
+            - name: SYNC_TOKENSERVER__FXA_OAUTH_PRIMARY_JWK__N
+              value: {{ .Values.oauthPrimaryJwk.n | quote}}
             - name: SYNC_TOKENSERVER__ENABLED
               value: 'true'
             - name: SYNC_MASTER_SECRET

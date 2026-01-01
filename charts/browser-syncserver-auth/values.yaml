@@ -28,7 +28,7 @@ syncServerUrl: "placeholder"
 # Signing key for JWTs issues by this authentication server.
 #
 # Generate a private key with:
-# openssl genrsa -out jwt_private.pem 2048
+# openssl genrsa 2048
 jwtPrivateKeySecretRef:
   name: "placeholder"
   key: "placeholder"
