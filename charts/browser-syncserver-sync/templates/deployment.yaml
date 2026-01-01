@@ -32,6 +32,47 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        - name: init-db
+          image: postgres:15-alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              # Transform postgresql:// to postgres:// for psql compatibility
+              export DATABASE_URL=$(echo "$_ORIG_TOKEN_DB_URL" | sed 's/postgresql:/postgres:/')
+              
+              echo "Seeding tokenserver database with service and node..."
+              
+              # Seed the services table
+              psql "$DATABASE_URL" -c "
+                INSERT INTO services (service, pattern) 
+                VALUES ('sync-1.5', '{node}/1.5/{uid}')
+                ON CONFLICT (service) DO NOTHING;
+              "
+              
+              # Seed the nodes table with this sync server
+              psql "$DATABASE_URL" -c "
+                INSERT INTO nodes (service, node, available, current_load, capacity, downed, backoff)
+                SELECT 
+                  (SELECT id FROM services WHERE service = 'sync-1.5'),
+                  '{{ .Values.externalUrl }}',
+                  100,
+                  0,
+                  100,
+                  0,
+                  0
+                WHERE NOT EXISTS (
+                  SELECT 1 FROM nodes WHERE node = '{{ .Values.externalUrl }}'
+                );
+              "
+              
+              echo "Database seeding complete."
+          env:
+            - name: _ORIG_TOKEN_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.tokenDatabaseUriSecretRef.name }}
+                  key: {{ .Values.tokenDatabaseUriSecretRef.key }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}

@@ -42,6 +42,10 @@ oauthPrimaryJwk:
 # Domain for tokens. For most users this just needs to be consistent between the auth service and sync.
 tokenDomain: "localhost"
 
+# The public URL of this sync server that Firefox will use to sync data.
+# Example: "https://sync.example.com"
+externalUrl: "https://sync.example.com"
+
 # Opaque shared secret between the Auth, Token, and Storage services. Must be high entropy and consistent.
 masterSecretSecretRef:
   name: "placeholder"
