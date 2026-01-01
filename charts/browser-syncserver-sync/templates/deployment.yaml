@@ -43,6 +43,29 @@ spec:
               # Transform postgresql:// to postgres:// for psql compatibility
               export DATABASE_URL=$(echo "$_ORIG_TOKEN_DB_URL" | sed 's/postgresql:/postgres:/')
               
+              echo "Creating tokenserver tables if they don't exist..."
+              
+              # Create only the tables needed for seeding (syncstorage-rs creates the rest)
+              psql "$DATABASE_URL" -c "
+                CREATE TABLE IF NOT EXISTS services (
+                    id SERIAL PRIMARY KEY,
+                    service VARCHAR(30) UNIQUE,
+                    pattern VARCHAR(128)
+                );
+                
+                CREATE TABLE IF NOT EXISTS nodes (
+                    id BIGSERIAL PRIMARY KEY,
+                    service INTEGER NOT NULL,
+                    node VARCHAR(64) NOT NULL,
+                    available INTEGER NOT NULL,
+                    current_load INTEGER NOT NULL,
+                    capacity INTEGER NOT NULL,
+                    downed INTEGER NOT NULL,
+                    backoff INTEGER NOT NULL,
+                    UNIQUE (service, node)
+                );
+              "
+              
               echo "Seeding tokenserver database with service and node..."
               
               # Seed the services table
