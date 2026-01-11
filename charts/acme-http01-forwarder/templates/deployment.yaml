@@ -42,11 +42,13 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 8080
               protocol: TCP
           env:
             - name: TARGET_HOST
               value: {{ .Values.targetHost | quote }}
+            - name: LISTEN_PORT
+              value: "8080"
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
